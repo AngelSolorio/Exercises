@@ -14,19 +14,43 @@ extension Array where Element: Comparable {
 
         return data
     }
+
+    // Insertition Sort
+    func insertionSort(by areInIncreasingOrder: (Element, Element) -> Bool) -> [Element] {
+        var data = self
+
+        for i in 1..<data.count {
+            var j = i - 1;
+            var shouldReorder = false
+
+            // Iterates to find the correct position of the sorting element into the sorted section
+            while (j >= 0 && areInIncreasingOrder(data[i], data[j])) {
+                shouldReorder = true
+                j -= 1;
+            }
+
+            // Inserts the sorting element into its final position
+            if shouldReorder {
+                data.insert(data[i], at: j+1)
+                data.remove(at: i+1)
+            }
+        }
+
+        return data
+    }
 }
 
 // Sort an array of integer numbers
 let numbers = [5, 1, 0, 10, 9, 8, 7, 2]
-let sortedNumbers = numbers.bubbleSort(by: >)
+let sortedNumbers = numbers.insertionSort(by: >)
 print("\nSorted numbers = \(sortedNumbers)")
 
 // Sort and array of floating numbers
 let decimals = [64,24,12,22,11,3,-2.5,99]
-let sortedDecimals = decimals.bubbleSort(by: <)
+let sortedDecimals = decimals.insertionSort(by: <)
 print("\nSorted decimals = \(sortedDecimals)")
 
 // Sort and array of strings
 let strings = ["John", "David", "Angel", "Pallav", "Erika", "Stefany", "Abbey"]
-let sortedStrings = strings.bubbleSort(by: >)
+let sortedStrings = strings.insertionSort(by: >)
 print("\nSorted strings = \(sortedStrings)")
