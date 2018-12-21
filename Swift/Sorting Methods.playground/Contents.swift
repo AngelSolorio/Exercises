@@ -103,19 +103,66 @@ extension Array where Element: Comparable {
 
         return mergedArray
     }
+
+    // Quick Sort
+    func quickSort(by areInIncreasingOrder:(Element, Element) -> Bool) -> [Element] {
+        var data = self
+
+        if (data.count > 1) {
+            _partitioning(array: &data, startIndex: 0, endIndex: data.count-1, by: areInIncreasingOrder)
+        }
+
+        return data
+    }
+
+    private func _partitioning(array: inout Array, startIndex: Int, endIndex: Int, by areInIncreasingOrder: (Element, Element) -> Bool) {
+        if startIndex >= endIndex {
+            return;
+        }
+
+        // Takes the middle element as the pivot and then recursively orders the elements on the left and right side
+        let pivot = array[(startIndex + endIndex) / 2]
+        let pIndex = _quickSorting(array: &array, lowerIndex: startIndex, higherIndex: endIndex, pivot: pivot, by: areInIncreasingOrder)
+        _partitioning(array: &array, startIndex: startIndex, endIndex: pIndex-1, by: areInIncreasingOrder)
+        _partitioning(array: &array, startIndex: pIndex, endIndex: endIndex, by: areInIncreasingOrder)
+    }
+
+    private func _quickSorting(array: inout Array, lowerIndex: Int, higherIndex: Int, pivot: Element, by areInIncreasingOrder: (Element, Element) -> Bool) -> Int {
+        var lower = lowerIndex
+        var higher = higherIndex
+
+        // Sort the array placing the lower values than pivot to the left and the higher values to the right or viceversa if the order is descending
+        while lower <= higher {
+            while areInIncreasingOrder(array[lower], pivot) {
+                lower += 1
+            }
+
+            while areInIncreasingOrder(pivot, array[higher]) {
+                higher -= 1
+            }
+
+            if lower <= higher {
+                array.swapAt(lower, higher)
+                lower += 1
+                higher -= 1
+            }
+        }
+
+        return lower
+    }
 }
 
 // Sort an array of integer numbers
 let numbers = [5, 1, 0, 10, 9, 8, 7, 2]
-let sortedNumbers = numbers.mergeSort(by: >)
+let sortedNumbers = numbers.quickSort(by: >)
 print("\nSorted numbers = \(sortedNumbers)")
 
 // Sort and array of floating numbers
 let decimals = [64,24,12,22,11,3,-2.5,99]
-let sortedDecimals = decimals.mergeSort(by: <)
+let sortedDecimals = decimals.quickSort(by: <)
 print("\nSorted decimals = \(sortedDecimals)")
 
 // Sort and array of strings
 let strings = ["John", "David", "Angel", "Pallav", "Erika", "Stefany", "Abbey"]
-let sortedStrings = strings.mergeSort(by: <)
+let sortedStrings = strings.quickSort(by: <)
 print("\nSorted strings = \(sortedStrings)")
