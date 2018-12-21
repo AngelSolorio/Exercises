@@ -38,19 +38,38 @@ extension Array where Element: Comparable {
 
         return data
     }
+
+    // Selection Sort
+    func selectionSort(by areInIncreasingOrder: (Element, Element) -> Bool) -> [Element] {
+        var data = self
+
+        for i in 0..<(data.count-1) {
+            var key = i
+
+            for j in i+1..<data.count where areInIncreasingOrder(data[j], data[key]) {
+                key = j
+            }
+
+            if key != i {
+                data.swapAt(i, key)
+            }
+        }
+
+        return data
+    }
 }
 
 // Sort an array of integer numbers
 let numbers = [5, 1, 0, 10, 9, 8, 7, 2]
-let sortedNumbers = numbers.insertionSort(by: >)
+let sortedNumbers = numbers.selectionSort(by: >)
 print("\nSorted numbers = \(sortedNumbers)")
 
 // Sort and array of floating numbers
 let decimals = [64,24,12,22,11,3,-2.5,99]
-let sortedDecimals = decimals.insertionSort(by: <)
+let sortedDecimals = decimals.selectionSort(by: <)
 print("\nSorted decimals = \(sortedDecimals)")
 
 // Sort and array of strings
 let strings = ["John", "David", "Angel", "Pallav", "Erika", "Stefany", "Abbey"]
-let sortedStrings = strings.insertionSort(by: >)
+let sortedStrings = strings.selectionSort(by: <)
 print("\nSorted strings = \(sortedStrings)")
