@@ -3,6 +3,7 @@ import Foundation
 
 extension Array where Element: Comparable {
     // Bubble Sort
+    // Average complexity:  O(n^2)
     func bubbleSort(by areInIncreasingOrder: (Element, Element) -> Bool) -> [Element] {
         var data = self
 
@@ -16,6 +17,7 @@ extension Array where Element: Comparable {
     }
 
     // Insertition Sort
+    // Average complexity:  O(n^2)
     func insertionSort(by areInIncreasingOrder: (Element, Element) -> Bool) -> [Element] {
         var data = self
 
@@ -40,6 +42,7 @@ extension Array where Element: Comparable {
     }
 
     // Selection Sort
+    // Average complexity:  O(n^2)
     func selectionSort(by areInIncreasingOrder: (Element, Element) -> Bool) -> [Element] {
         var data = self
 
@@ -59,6 +62,7 @@ extension Array where Element: Comparable {
     }
 
     // Merge Sort
+    // Average complexity:  O(n log(n))
     func mergeSort(by areInIncreasingOrder: (Element, Element) -> Bool) -> [Element] {
         var data = self
 
@@ -105,6 +109,7 @@ extension Array where Element: Comparable {
     }
 
     // Quick Sort
+    // Average complexity:  O(n log(n))
     func quickSort(by areInIncreasingOrder:(Element, Element) -> Bool) -> [Element] {
         var data = self
 
