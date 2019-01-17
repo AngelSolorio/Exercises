@@ -84,7 +84,7 @@ func printRectangleOfAstericks(n: Int, m: Int) {
 func printRightTriangle(ofNLines n: Int) {
     var counter = 1
     var lineToPrint = "*"
-    
+
     while counter <= n {
         print(lineToPrint)
         lineToPrint.append("*")
@@ -151,4 +151,71 @@ func printAztecPyramid(ofNLevels n: Int) {
         spaces -= 2
         level += 1
     }
+}
+
+
+// Chess Board: Given an integer N draw a chess board of size N x N. Each line of the chess board should have spaces and number signs(#) alternating. A space represents a white cell and the number sign a black one. The chess board should be bordered using +, - and | like in the examples below.
+/*
+ var N = 3
+ +---+
+ |# #|
+ | # |
+ |# #|
+ +---+
+ */
+func printChessBoard(ofNCells n: Int) {
+    if n <= 0 { return }
+
+    let border = "+\(String(repeating: "-", count: n))+"
+    print(border)
+    for i in 1...n {
+        var row = "|", cell: Character
+        for j in 1...n {
+            cell = (i % 2 == j % 2) ? "#" : " "
+            row.append(cell)
+        }
+        row.append("|")
+        print(row)
+    }
+    print(border)
+}
+
+
+// Fibonacci: Write a program that prints the first N Fibonacci numbers. The first two Fibonacci numbers are 1, the rest of the elements are the sum of the previous two. The first seven numbers are 1, 1, 2, 3, 5, 8 and 13.
+func printFibonacciSerie(size n: Int) {
+    var fibonacci = (n < 1) ? [] : (n == 1) ? [1] : [1, 1]
+    var i = 0
+
+    while i < (n - 2) {
+        fibonacci.append(fibonacci[i] + fibonacci[i + 1])
+        i += 1
+    }
+    print(fibonacci)
+}
+
+
+// Leap Years: Write a program that prints the next N leap years starting with leapYear. A leap year is a year containing an extra day. It has 366 days instead of the normal 365 days. The extra day is added in February, which has 29 daysinstead of the normal 28 days. Leap years occur every 4 years, 2012 was a leap year and 2016 will be a leap year. Except that every 100 years special rules apply. Years that are divisible by 100 are not leap years if they are not divisible by 400. For example 1900 was not a leap year, but 2000 was.
+func printLeapYears(total: Int, from: Int) {
+    var leapYears = Array<Int>()
+    var year = from
+
+    while year > 0 && leapYears.count < total {
+        if ((year % 4 == 0) && (year % 100 != 0)) || ((year % 4 == 0) && (year % 100 == 0) && (year % 400 == 0)) {
+            leapYears.append(year)
+        }
+        year += 1
+    }
+    print(leapYears)
+}
+
+
+// Reverse: You are given a number. Print the number with the digits in reversed order.
+func printReverse(number: Int) {
+    let stringNumber = number < 0 ? String(number * -1) : String(number)
+    var reversedDigits = number < 0 ? "-" : ""
+
+    for character in stringNumber.reversed() {
+        reversedDigits.append(character)
+    }
+    print(reversedDigits)
 }
