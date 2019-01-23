@@ -219,3 +219,11 @@ func printReverse(number: Int) {
     }
     print(reversedDigits)
 }
+
+
+// Odd Numbers: Given the l and k integers, print the odd numbers between those two numbers, l and k are inclusive.
+func oddNumbers(l: Int, r: Int) -> [Int] {
+    if l > r { return [] }
+    return Array(l...r).filter({ ($0 % 2) != 0 })
+}
+
