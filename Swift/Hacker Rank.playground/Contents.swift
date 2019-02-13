@@ -26,7 +26,7 @@ func aVeryBigSum(ar: [Int]) -> Int {
 }
 
 
-// Title: Diagonla Difference
+// Title: Diagonal Difference
 // Instructions: Given a square matrix, calculate the absolute difference between the sums of its diagonals. The top-left to bottom-right diagonal minus the one from top-right to bottom-left.
 // Url: https://www.hackerrank.com/challenges/diagonal-difference/
 func diagonalDifference(arr: [[Int]]) -> Int {
@@ -150,5 +150,90 @@ func getTotalX(a: [Int], b: [Int]) -> Int {
 func getTotalXV2(a: [Int], b: [Int]) -> Int {
     let min = b.min() ?? 1
     return (1...min).filter{ (i) in (a.filter{i % $0 == 0}.count == a.count) && (b.filter{$0 % i == 0}.count == b.count)}.count
+}
+
+
+// Title: Sock Merchant
+// Instructions: Given an array of integers representing the color of each sock, determine how many pairs of socks with matching colors there are. For example, there are  socks with colors ar = [1,2,1,2,1,3,2]. There is one pair of color 1 and one of color 2. There are three odd socks left, one of each color. The number of pairs is 2.
+// Url: https://www.hackerrank.com/challenges/sock-merchant/
+func sockMerchant(n: Int, ar: [Int]) -> Int {
+    var colorsPalette = Array<Int>()
+    var pairsFound = 0
+
+    for color in ar {
+        if let i = colorsPalette.index(of: color) {
+            print(i)
+            pairsFound += 1
+            colorsPalette.remove(at: i)
+        } else {
+            colorsPalette.append(color)
+        }
+    }
+    return pairsFound
+}
+
+
+// Title: Counting Valleys
+// Instructions: Gary tracks his hikes meticulously, paying close attention to small details like topography. During his last hike he took exactly n steps. For every step he took, he noted if it was an uphill, U, or a downhill, D step. Gary's hikes start and end at sea level and each step up or down represents a 1 unit change in altitude. We define the following terms:
+//  -> A mountain is a sequence of consecutive steps above sea level, starting with a step up from sea level and ending with a step down to sea level.
+//  -> A valley is a sequence of consecutive steps below sea level, starting with a step down from sea level and ending with a step up to sea level.
+//  Given Gary's sequence of up and down steps during his last hike, find and print the number of valleys he walked through.
+// Url: https://www.hackerrank.com/challenges/counting-valleys/
+func countingValleys(n: Int, s: String) -> Int {
+    var valleys = 0, seaLevel = 0
+
+    for step in s {
+        if step == "U" && seaLevel == -1 { valleys += 1 }
+        seaLevel += step == "U" ? 1 : -1
+    }
+
+    return valleys
+}
+
+
+// Title: Breaking the Records
+// Instructions: Maria plays college basketball and wants to go pro. Each season she maintains a record of her play. She tabulates the number of times she breaks her season record for most points and least points in a game. Points scored in the first game establish her record for the season, and she begins counting from there. Find and print the number of times she breaks her records for most and least points scored during the season.
+// Url: https://www.hackerrank.com/challenges/breaking-best-and-worst-records/
+func breakingRecords(scores: [Int]) -> [Int] {
+    var lowestScore = scores[0], highestScore = scores[0]
+    var records = [0, 0]
+    for score in scores {
+        if  score > highestScore {
+            records[0] += 1
+            highestScore = score
+        } else if score < lowestScore {
+            records[1] += 1
+            lowestScore = score
+        }
+    }
+    return records
+}
+
+
+// Title: Birthday Chocolate
+// Instructions: Lily has a chocolate bar that she wants to share it with Ron for his birthday. Each of the squares has an integer on it. She decides to share a contiguous segment of the bar selected such that the length of the segment matches Ron's birth month and the sum of the integers on the squares is equal to his birth day. You must determine how many ways she can divide the chocolate.
+// Url: https://www.hackerrank.com/challenges/the-birthday-bar/
+func birthday(s: [Int], d: Int, m: Int) -> Int {
+    guard m <= s.count else { return 0 }
+    var ways = 0
+    for index in 0...(s.count - m) {
+        ways += (index...(index + m - 1)).reduce(0) { $0 + s[$1]} == d ? 1 : 0
+    }
+    return ways
+}
+
+
+// Title: Divisible Sum Pairs
+// Instructions: You are given an array ar of n integers, and a positive integer, k. Find and print the number of (i, j) pairs where i < j and ar[i] + ar[j] is divisible by k.
+// Url: https://www.hackerrank.com/challenges/divisible-sum-pairs/
+func divisibleSumPairs(n: Int, k: Int, ar: [Int]) -> Int {
+    guard n >= 2 else { return 0 }
+    var totalPairs = 0
+    for i in 0..<(n - 1) {
+        for j in (i + 1)...(n - 1) {
+            totalPairs += (ar[i] + ar[j]) % k == 0 ? 1 : 0
+        }
+    }
+    return totalPairs
 }
 
